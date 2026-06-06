@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Huda Hassoun – UX Designer, UX Researcher, Data Analyst, and Accessibility Architect who designs sustainable solutions for human-centered problems." />
+  <title>Huda Hassoun — UX Designer & Accessibility Architect</title>
+
+  <style>
+    /* =============================================
+       SKIP LINK
+    ============================================= */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      z-index: 9999;
+      padding: 0.75rem 1.5rem;
+      background: #04724D;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 0 0 8px 8px;
+      text-decoration: none;
+      transition: top 0.15s;
+    }
+    .skip-link:focus {
+      top: 0;
+      outline: 3px solid #F3DC67;
+      outline-offset: 2px;
+    }
+
+    /* =============================================
+       CSS CUSTOM PROPERTIES
+       Color contrast notes (WCAG 2.0 AA):
+       --clr-green-dark  #04724D on white  → 6.1:1  ✅ (normal text)
+       --clr-purple-text #7A3E99 on white  → 6.2:1  ✅ (normal text)
+       --clr-green-text  #3E7A3B on white  → 5.4:1  ✅ (normal text)
+       --clr-yellow      #F3DC67 on #04724D→ 8.1:1  ✅ (on dark bg only)
+       --clr-yellow      NEVER used as text on white (1.5:1 ❌)
+    ============================================= */
+    :root {
+      /* Brand palette */
+      --clr-green-dark:   #04724D;   /* 6.1:1 on white ✅ */
+      --clr-purple-raw:   #AD74C4;   /* decorative only — NOT text on white */
+      --clr-purple-text:  #7A3E99;   /* 6.2:1 on white ✅ */
+      --clr-green-mid:    #61A45E;   /* decorative only — NOT text on white */
+      --clr-green-text:   #3E7A3B;   /* 5.4:1 on white ✅ */
+      --clr-yellow:       #F3DC67;   /* 8.1:1 on #04724D ✅; decorative on light bg */
+
+      /* UI colours */
+      --clr-ink:          #1A2A22;   /* near-black with green tint, 16.8:1 on white ✅ */
+      --clr-body:         #3B4A40;   /* dark body text, 9.1:1 on white ✅ */
+      --clr-muted:        #5A6B5E;   /* muted text, 5.1:1 on white ✅ */
+      --clr-white:        #FFFFFF;
+      --clr-off-white:    #F4F7F5;
+      --clr-green-tint:   #E8F4EE;   /* very light green for bg tints */
+      --clr-purple-tint:  #F3EAF8;
+      --clr-border:       #C8D5CC;
+
+      /* Typography */
+      --ff-display: 'DM Serif Display', serif;
+      --ff-body:    'DM Sans', sans-serif;
+      --ff-mono:    'DM Mono', monospace;
+
+      /* Shape */
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  20px;
+      --radius-xl:  32px;
+
+      /* Shadow */
+      --shadow-card:  0 2px 16px rgba(4,114,77,0.10);
+      --shadow-hover: 0 8px 32px rgba(4,114,77,0.18);
+
+      /* Layout */
+      --nav-h:  72px;
+      --max-w: 1140px;
+
+      /* Motion — safe rates */
+      --card-duration: 600ms;   /* fade = NOT a flash */
+      --card-interval: 3000ms;  /* ~0.28 Hz total cycle — well below 2 Hz */
+    }
+
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 100%; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    body {
+      font-family: var(--ff-body);
+      color: var(--clr-ink);
+      background: var(--clr-white);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img, svg { display: block; max-width: 100%; }
+
+    a {
+      color: var(--clr-green-dark);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    a:hover { color: var(--clr-purple-text); }
+    a:focus-visible {
+      outline: 3px solid var(--clr-green-dark);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--ff-display);
+      line-height: 1.2;
+      color: var(--clr-ink);
+    }
+
+    /* =============================================
+       VISUALLY HIDDEN (accessible)
+    ============================================= */
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* =============================================
+       LAYOUT UTILITIES
+    ============================================= */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin-inline: auto;
+      padding-inline: clamp(1rem, 4vw, 2rem);
+    }
+
+    section { padding-block: clamp(4rem, 8vw, 7rem); }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--ff-mono);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--clr-green-dark);
+      margin-bottom: 1rem;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 2px;
+      background: var(--clr-green-dark);
+      border-radius: 2px;
+    }
+
+    .section-heading {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      margin-bottom: 1rem;
+    }
+
+    .section-sub {
+      font-size: 1.0625rem;
+      color: var(--clr-muted);
+      max-width: 52ch;
+      line-height: 1.7;
+    }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--clr-border);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 1.35rem;
+      color: var(--clr-ink);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-logo:hover { color: var(--clr-green-dark); }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0.25rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--clr-ink);
+      text-decoration: none;
+      padding: 0.5rem 0.875rem;
+      border-radius: var(--radius-sm);
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-links a:hover {
+      background: var(--clr-green-tint);
+      color: var(--clr-green-dark);
+    }
+    .nav-links a:focus-visible {
+      outline: 3px solid var(--clr-green-dark);
+      outline-offset: 2px;
+      background: var(--clr-green-tint);
+    }
+
+    .nav-cta {
+      background: var(--clr-green-dark) !important;
+      color: var(--clr-white) !important;
+      padding: 0.5rem 1.125rem !important;
+      border-radius: var(--radius-sm) !important;
+    }
+    .nav-cta:hover {
+      background: var(--clr-purple-text) !important;
+      color: var(--clr-white) !important;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 2px solid var(--clr-ink);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.6rem;
+      cursor: pointer;
+      color: var(--clr-ink);
+      font-size: 1rem;
+      line-height: 1;
+    }
+    .nav-toggle:focus-visible {
+      outline: 3px solid var(--clr-green-dark);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle { display: flex; align-items: center; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: var(--nav-h);
+        left: 0; right: 0;
+        background: var(--clr-white);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem;
+        border-bottom: 1px solid var(--clr-border);
+        box-shadow: var(--shadow-card);
+        gap: 0.25rem;
+      }
+      .nav-links.is-open { display: flex; }
+      .nav-links a { padding: 0.75rem 1rem; }
+    }
+
+    /* =============================================
+       HERO SECTION
+    ============================================= */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding-top: var(--nav-h);
+      background: var(--clr-white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative background circle */
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -10%; right: -5%;
+      width: clamp(260px, 42vw, 560px);
+      height: clamp(260px, 42vw, 560px);
+      background: var(--clr-green-tint);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    /* Second decorative blob */
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: 5%; left: -4%;
+      width: clamp(140px, 20vw, 280px);
+      height: clamp(140px, 20vw, 280px);
+      background: var(--clr-purple-tint);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+
+    .hero-content { width: 100%; }
+
+    .hero-eyebrow {
+      font-family: var(--ff-mono);
+      font-size: 0.875rem;
+      letter-spacing: 0.1em;
+      color: var(--clr-green-dark);
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+    }
+
+    /* ---- HERO HEADING ---- */
+    /*
+      Layout:
+        Line 1: "Hi, I'm Huda,"           ← plain text
+        Line 2: [changing card]            ← animated card, block-level
+        Line 3: "who designs..."           ← plain text
+    */
+    .hero-headline {
+      font-family: var(--ff-display);
+      font-size: clamp(2.25rem, 5.5vw, 4rem);
+      line-height: 1.15;
+      color: var(--clr-ink);
+      margin-bottom: 1.75rem;
+      text-align: center;
+    }
+
+    .hero-line-static {
+      display: block;
+    }
+
+    /* ---- ROLE CARD CAROUSEL ---- */
+    /*
+      The card occupies its own block line. Height is fixed to match
+      the display font line height so it never overlaps adjacent lines.
+      Cards are stacked (position: absolute within the relative wrapper).
+    */
+    /*
+      Wrapper: inline-flex so it hugs the card's natural size.
+      The card sits in normal flow — no fixed height, no guesswork.
+      overflow: hidden clips the tiny translateY nudge during the fade
+      so it never bleeds into adjacent lines.
+    */
+    .role-card-wrapper {
+      display: block;
+      text-align: center;
+      /* No overflow: hidden — lets the card grow to its natural height */
+      margin-block: 0.05em;
+    }
+
+    .role-card {
+      display: inline;
+      padding: 0.1em 0.55em 0.15em;
+      background: var(--clr-green-dark);   /* white text on #04724D = 6.1:1 ✅ */
+      color: var(--clr-white);
+      border-radius: var(--radius-sm);
+      font-family: var(--ff-display);
+      font-size: inherit;
+      line-height: 1.4;
+      /* Allow text to wrap naturally — no forced single line */
+      white-space: normal;
+      /* box-decoration-break ensures padding/radius apply on every wrapped line */
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+      /*
+        Transition: opacity + vertical nudge.
+        600 ms fade — not a flash/blink.
+        Interval 3000 ms → 0.28 Hz cycle rate, well below 2 Hz lower bound.
+      */
+      transition: opacity var(--card-duration) ease,
+                  transform var(--card-duration) ease;
+      will-change: opacity, transform;
+    }
+
+    /* Accessibility Architect card — purple accent */
+    .role-card.is-accent {
+      background: var(--clr-purple-text);  /* white text on #7A3E99 = 6.2:1 ✅ */
+    }
+
+    /* Hidden state */
+    .role-card[aria-hidden="true"] {
+      opacity: 0;
+      transform: translateY(6px);
+      pointer-events: none;
+      position: absolute;
+      width: 1px; height: 1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+    }
+
+    /* Visible state — in normal flow so wrapper sizes to it */
+    .role-card[aria-hidden="false"] {
+      opacity: 1;
+      transform: translateY(0);
+      position: static;
+      width: auto; height: auto;
+      overflow: visible;
+      clip: auto;
+    }
+    }
+
+    .hero-tagline {
+      display: block;
+    }
+
+    .hero-tagline em {
+      font-style: italic;
+      color: var(--clr-muted);
+    }
+
+    /* Live region — visually hidden, read aloud by screen readers */
+    #role-live {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .hero-desc {
+      font-size: 1.125rem;
+      color: var(--clr-muted);
+      max-width: 50ch;
+      line-height: 1.7;
+      margin-top: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--ff-body);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.12s;
+      border: 2px solid transparent;
+    }
+    .btn:focus-visible {
+      outline: 3px solid var(--clr-green-dark);
+      outline-offset: 3px;
+    }
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background: var(--clr-green-dark);  /* white on #04724D = 6.1:1 ✅ */
+      color: var(--clr-white);
+    }
+    .btn-primary:hover { background: var(--clr-purple-text); color: var(--clr-white); }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--clr-ink);
+      border-color: var(--clr-ink);
+    }
+    .btn-outline:hover {
+      background: var(--clr-ink);
+      color: var(--clr-white);
+    }
+
+    @media (max-width: 768px) {
+      .hero-actions { justify-content: center; }
+      .hero-desc { margin-inline: auto; }
+      .section-sub { margin-inline: auto; }
+      .role-card-wrapper { text-align: left; }
+    }
+
+    /* =============================================
+       CASE STUDIES
+    ============================================= */
+    #case-studies { background: var(--clr-off-white); }
+
+    .cs-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .cs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+      gap: 1.75rem;
+    }
+
+    .cs-card {
+      background: var(--clr-white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .cs-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-4px); }
+    .cs-card:focus-visible { outline: 3px solid var(--clr-green-dark); outline-offset: 3px; }
+
+    .cs-thumb {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .cs-thumb-1 { background: var(--clr-green-tint); }
+    .cs-thumb-2 { background: var(--clr-purple-tint); }
+    .cs-thumb-3 { background: #FFFBE8; } /* yellow tint */
+
+    .cs-thumb-icon { font-size: 3.5rem; line-height: 1; }
+
+    .cs-tag {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      font-family: var(--ff-mono);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--clr-green-dark);  /* white on #04724D ✅ */
+      color: var(--clr-white);
+      padding: 0.25em 0.65em;
+      border-radius: var(--radius-sm);
+    }
+
+    .cs-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+    }
+
+    .cs-title {
+      font-family: var(--ff-display);
+      font-size: 1.3125rem;
+      color: var(--clr-ink);
+      line-height: 1.3;
+    }
+
+    .cs-desc {
+      font-size: 0.9375rem;
+      color: var(--clr-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .cs-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--ff-mono);
+      font-size: 0.75rem;
+      color: var(--clr-green-dark);
+      font-weight: 500;
+      margin-top: 0.5rem;
+    }
+    .cs-meta svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+    /* =============================================
+       ABOUT
+    ============================================= */
+    #about { background: var(--clr-white); }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 6vw, 5rem);
+      align-items: center;
+    }
+
+    .about-visual { position: relative; }
+
+    .about-img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      border-radius: var(--radius-xl);
+      background: var(--clr-green-tint);
+      border: 3px solid var(--clr-green-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.75rem;
+      box-shadow: 10px 10px 0 var(--clr-yellow);
+    }
+    .about-img svg { width: 56px; height: 56px; fill: var(--clr-green-dark); opacity: 0.4; }
+    .about-img span { font-size: 0.8125rem; color: var(--clr-muted); }
+
+    .about-stat {
+      position: absolute;
+      background: var(--clr-white);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-card);
+      padding: 0.875rem 1.125rem;
+      text-align: center;
+    }
+    .about-stat-num {
+      font-family: var(--ff-display);
+      font-size: 1.75rem;
+      color: var(--clr-green-dark);
+      line-height: 1;
+    }
+    .about-stat-lbl { font-size: 0.75rem; color: var(--clr-muted); font-weight: 500; margin-top: 0.2rem; }
+    .about-stat-1 { bottom: 2rem; right: -1rem; }
+    .about-stat-2 { top: 2rem; right: -1rem; }
+
+    .about-text h2 { margin-bottom: 1rem; }
+    .about-text .section-label { margin-bottom: 0.75rem; }
+    .about-text p { font-size: 1.0625rem; color: var(--clr-muted); line-height: 1.75; margin-bottom: 1.25rem; }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.625rem;
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+    .skill-pill {
+      font-family: var(--ff-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      background: var(--clr-green-tint);
+      color: var(--clr-green-dark);   /* #04724D on #E8F4EE = 5.5:1 ✅ */
+      padding: 0.35em 0.85em;
+      border-radius: 100px;
+      border: 1px solid rgba(4,114,77,0.22);
+    }
+
+    @media (max-width: 768px) {
+      .about-inner { grid-template-columns: 1fr; }
+      .about-visual { display: none; }
+    }
+
+    /* =============================================
+       CONTACT
+    ============================================= */
+    #contact { background: var(--clr-green-dark); color: var(--clr-white); }
+
+    #contact .section-label { color: var(--clr-yellow); }   /* #F3DC67 on #04724D = 8.1:1 ✅ */
+    #contact .section-label::before { background: var(--clr-yellow); }
+    #contact .section-heading { color: var(--clr-white); }
+    #contact .section-sub { color: #B8D4C7; }  /* light green-white, sufficient contrast */
+
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 6vw, 5rem);
+      align-items: start;
+    }
+
+    .contact-info { padding-top: 0.5rem; }
+
+    .contact-channels {
+      list-style: none;
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-channels li {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .contact-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-icon svg { width: 20px; height: 20px; fill: var(--clr-yellow); }
+    .contact-channels a { color: var(--clr-white); font-size: 0.9375rem; text-decoration: none; }
+    .contact-channels a:hover { color: var(--clr-yellow); }
+    .contact-channels a:focus-visible { outline: 3px solid var(--clr-yellow); outline-offset: 3px; border-radius: 2px; }
+    .contact-channels span { font-size: 0.75rem; color: #8FBCA8; display: block; }
+
+    /* Form */
+    .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .form-group { display: flex; flex-direction: column; gap: 0.375rem; }
+
+    .form-group label { font-size: 0.875rem; font-weight: 500; color: #C8E0D5; }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      font-family: var(--ff-body);
+      font-size: 0.9375rem;
+      color: var(--clr-white);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-sm);
+      padding: 0.7rem 1rem;
+      transition: border-color 0.15s, background 0.15s;
+      width: 100%;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: #6A9680; }
+    .form-group input:hover,
+    .form-group textarea:hover,
+    .form-group select:hover { border-color: rgba(255,255,255,0.38); }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: 3px solid var(--clr-yellow);
+      outline-offset: 2px;
+      border-color: var(--clr-yellow);
+      background: rgba(255,255,255,0.12);
+    }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-group select { cursor: pointer; }
+    .form-group select option { background: var(--clr-green-dark); color: var(--clr-white); }
+
+    .form-hint { font-size: 0.8125rem; color: #8FBCA8; margin-top: 0.2rem; }
+
+    .form-error { font-size: 0.8125rem; color: #FFCACA; display: none; }
+    .form-group.has-error input,
+    .form-group.has-error textarea { border-color: #FFCACA; }
+    .form-group.has-error .form-error { display: block; }
+
+    .btn-submit {
+      width: 100%;
+      justify-content: center;
+      background: var(--clr-yellow);     /* #1A2A22 text on #F3DC67 = 12:1 ✅ */
+      color: var(--clr-ink);
+      border-color: var(--clr-yellow);
+      font-size: 1rem;
+      padding: 0.875rem;
+    }
+    .btn-submit:hover { background: #E8CE50; border-color: #E8CE50; }
+    .btn-submit:focus-visible { outline: 3px solid var(--clr-white); outline-offset: 3px; }
+
+    .form-success {
+      display: none;
+      background: rgba(243,220,103,0.15);
+      border: 1px solid rgba(243,220,103,0.4);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      color: var(--clr-white);
+      font-size: 0.9375rem;
+    }
+
+    @media (max-width: 900px) {
+      .contact-inner { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .site-footer {
+      background: #021F14;              /* very dark green */
+      color: #7AA890;                   /* muted green-white, passes AA on dark bg */
+      padding-block: 2rem;
+      text-align: center;
+      font-size: 0.875rem;
+    }
+    .site-footer a {
+      color: var(--clr-yellow);         /* #F3DC67 on #021F14 = 9.8:1 ✅ */
+      text-decoration: none;
+    }
+    .site-footer a:hover { text-decoration: underline; }
+    .site-footer a:focus-visible { outline: 3px solid var(--clr-yellow); outline-offset: 3px; }
+
+    /* =============================================
+       SCROLL REVEAL
+    ============================================= */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+      .reveal.is-visible {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+
+  <!-- ====== SKIP LINK ====== -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ====== LIVE REGION — role carousel announcements ====== -->
+  <div id="role-live" aria-live="polite" aria-atomic="true" role="status"></div>
+
+  <!-- ====== NAVIGATION ====== -->
+  <header role="banner">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="nav-logo" href="#hero" aria-label="Huda Hassoun — home">Huda Hassoun</a>
+
+        <button
+          class="nav-toggle"
+          aria-controls="nav-menu"
+          aria-expanded="false"
+          aria-label="Open navigation menu"
+        >
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+            <rect x="2" y="5"  width="18" height="2" rx="1" fill="currentColor"/>
+            <rect x="2" y="10" width="18" height="2" rx="1" fill="currentColor"/>
+            <rect x="2" y="15" width="18" height="2" rx="1" fill="currentColor"/>
+          </svg>
+        </button>
+
+        <ul class="nav-links" id="nav-menu" role="list">
+          <li><a href="#case-studies">Case Studies</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ====== MAIN CONTENT ====== -->
+  <main id="main-content" tabindex="-1">
+
+    <!-- ====== HERO ====== -->
+    <section id="hero" aria-labelledby="hero-heading">
+      <div class="container hero-inner">
+
+        <div class="hero-content">
+          <p class="hero-eyebrow" aria-hidden="true">Portfolio · 2025</p>
+
+          <!--
+            Heading structure:
+              "Hi, I'm Huda,"
+              [animated card: "a UX Designer" etc.]
+              "who designs sustainable solutions for human-centered problems."
+
+            Screen readers receive the full sentence via the aria-live region
+            on each card change. The wrapper is aria-hidden so duplicate
+            announcement is avoided.
+          -->
+          <h1 id="hero-heading" class="hero-headline">
+            <span class="hero-line-static">Hi, I'm Huda,</span>
+
+            <!--
+              aria-hidden on wrapper: visible animation is decorative;
+              the meaningful text is delivered via #role-live (aria-live).
+              A static fallback is also inside #role-live on page load.
+            -->
+            <span class="role-card-wrapper" aria-hidden="true" role="presentation">
+              <span class="role-card"           id="role-0" aria-hidden="false">a UX Designer</span>
+              <span class="role-card"           id="role-1" aria-hidden="true">a UX Researcher</span>
+              <span class="role-card"           id="role-2" aria-hidden="true">a Data Analyst</span>
+              <span class="role-card is-accent" id="role-3" aria-hidden="true">an Accessibility Architect</span>
+            </span>
+
+            <span class="hero-tagline">who designs <em>sustainable solutions</em> for human-centered problems.</span>
+          </h1>
+
+          <p class="hero-desc">
+            I blend UX research, interaction design, and data analysis
+            to craft products that are inclusive, effective, and
+            delightful to use.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#case-studies">
+              View Case Studies
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+            <a class="btn btn-outline" href="#contact">Get in Touch</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====== CASE STUDIES ====== -->
+    <section id="case-studies" aria-labelledby="cs-heading">
+      <div class="container">
+        <div class="cs-header">
+          <div>
+            <p class="section-label" aria-hidden="true">Selected work</p>
+            <h2 class="section-heading" id="cs-heading">Case Studies</h2>
+            <p class="section-sub">
+              A selection of projects where research, design, and accessibility converge.
+            </p>
+          </div>
+          <a class="btn btn-outline" href="case-studies.html">View All Work</a>
+        </div>
+
+        <ul class="cs-grid reveal" role="list" aria-label="Featured case studies">
+
+          <li>
+            <a class="cs-card" href="case-study-1.html" aria-label="Case study: Redesigning transit accessibility — UX Design project">
+              <div class="cs-thumb cs-thumb-1" aria-hidden="true">
+                <span class="cs-tag">UX Design</span>
+                <span class="cs-thumb-icon" aria-hidden="true">🚌</span>
+              </div>
+              <div class="cs-body">
+                <h3 class="cs-title">Redesigning Transit Accessibility</h3>
+                <p class="cs-desc">End-to-end redesign of a public transit app focused on reducing cognitive load for riders with disabilities.</p>
+                <p class="cs-meta">
+                  <svg viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                    <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M7 4v3.5l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                  12 weeks · Research, Interaction Design
+                </p>
+              </div>
+            </a>
+          </li>
+
+          <li>
+            <a class="cs-card" href="case-study-2.html" aria-label="Case study: Healthcare data dashboard — Data Analysis project">
+              <div class="cs-thumb cs-thumb-2" aria-hidden="true">
+                <span class="cs-tag">Data Analysis</span>
+                <span class="cs-thumb-icon" aria-hidden="true">📊</span>
+              </div>
+              <div class="cs-body">
+                <h3 class="cs-title">Healthcare Data Dashboard</h3>
+                <p class="cs-desc">Surfacing patient outcome patterns for clinical teams through an accessible, real-time analytics dashboard.</p>
+                <p class="cs-meta">
+                  <svg viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                    <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M7 4v3.5l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                  8 weeks · Data Viz, UX Research
+                </p>
+              </div>
+            </a>
+          </li>
+
+          <li>
+            <a class="cs-card" href="case-study-3.html" aria-label="Case study: Inclusive e-commerce onboarding — Accessibility project">
+              <div class="cs-thumb cs-thumb-3" aria-hidden="true">
+                <span class="cs-tag">Accessibility</span>
+                <span class="cs-thumb-icon" aria-hidden="true">♿</span>
+              </div>
+              <div class="cs-body">
+                <h3 class="cs-title">Inclusive E-Commerce Onboarding</h3>
+                <p class="cs-desc">Auditing and rebuilding an onboarding flow to meet WCAG 2.1 AA and Section 508 requirements for a retail platform.</p>
+                <p class="cs-meta">
+                  <svg viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false">
+                    <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M7 4v3.5l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                  6 weeks · A11y Audit, Remediation
+                </p>
+              </div>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+    </section>
+
+    <!-- ====== ABOUT ====== -->
+    <section id="about" aria-labelledby="about-heading">
+      <div class="container">
+        <div class="about-inner">
+
+          <div class="about-visual reveal" aria-hidden="true" role="presentation">
+            <div class="about-img">
+              <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="18" r="10"/>
+                <path d="M4 46c0-11 9-18 20-18s20 7 20 18"/>
+              </svg>
+              <span>Photo coming soon</span>
+            </div>
+            <div class="about-stat about-stat-1">
+              <p class="about-stat-num">50+</p>
+              <p class="about-stat-lbl">Projects</p>
+            </div>
+            <div class="about-stat about-stat-2">
+              <p class="about-stat-num">5+</p>
+              <p class="about-stat-lbl">Years exp.</p>
+            </div>
+          </div>
+
+          <div class="about-text reveal">
+            <p class="section-label">About me</p>
+            <h2 class="section-heading" id="about-heading">
+              Designing with empathy,<br>building for everyone.
+            </h2>
+            <p>
+              I'm a UX Designer and Researcher specialising in accessibility and data-driven
+              design decisions. My work sits at the intersection of human psychology,
+              inclusive design principles, and analytical rigour.
+            </p>
+            <p>
+              Whether I'm conducting contextual inquiry, building accessible design systems,
+              or translating complex datasets into intuitive interfaces, I keep one question
+              central: <em>who might be left out?</em>
+            </p>
+
+            <ul class="skills-list" aria-label="Skills">
+              <li class="skill-pill">UX Research</li>
+              <li class="skill-pill">Interaction Design</li>
+              <li class="skill-pill">Accessibility (WCAG / 508)</li>
+              <li class="skill-pill">Data Analysis</li>
+              <li class="skill-pill">Figma</li>
+              <li class="skill-pill">Usability Testing</li>
+              <li class="skill-pill">Design Systems</li>
+              <li class="skill-pill">Information Architecture</li>
+            </ul>
+
+            <a class="btn btn-primary" href="about.html">
+              Read Full Bio
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== CONTACT ====== -->
+    <section id="contact" aria-labelledby="contact-heading">
+      <div class="container">
+        <div class="contact-inner">
+
+          <div class="contact-info reveal">
+            <p class="section-label">Contact</p>
+            <h2 class="section-heading" id="contact-heading">
+              Let's build something<br>meaningful together.
+            </h2>
+            <p class="section-sub">
+              Open to full-time, contract, and consulting opportunities.
+              I'd love to hear about your project.
+            </p>
+
+            <ul class="contact-channels" aria-label="Contact channels">
+              <li>
+                <div class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <path d="M2 4h16v12H2V4zm0 0l8 7 8-7" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                  </svg>
+                </div>
+                <div>
+                  <a href="mailto:huda@example.com">huda@example.com</a>
+                  <span>Responds within 48 hours</span>
+                </div>
+              </li>
+              <li>
+                <div class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <rect x="2" y="2" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    <circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                    <circle cx="15" cy="5" r="1" fill="currentColor"/>
+                  </svg>
+                </div>
+                <div>
+                  <a href="https://linkedin.com/in/hudahassoun" target="_blank" rel="noopener noreferrer">
+                    LinkedIn<span class="sr-only"> (opens in new tab)</span>
+                  </a>
+                  <span>Connect professionally</span>
+                </div>
+              </li>
+              <li>
+                <div class="contact-icon" aria-hidden="true">
+                  <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <path d="M10 2C5.58 2 2 5.58 2 10c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0018 10c0-4.42-3.58-8-8-8z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <div>
+                  <a href="https://github.com/hudahassoun" target="_blank" rel="noopener noreferrer">
+                    GitHub<span class="sr-only"> (opens in new tab)</span>
+                  </a>
+                  <span>Code &amp; side projects</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="reveal">
+            <form class="contact-form" id="contact-form" novalidate aria-label="Send a message to Huda">
+
+              <div class="form-row">
+                <div class="form-group" id="fg-name">
+                  <label for="contact-name">Full name<span aria-hidden="true"> *</span></label>
+                  <input type="text" id="contact-name" name="name" autocomplete="name"
+                    required aria-required="true" aria-describedby="name-error"
+                    placeholder="Alex Rivera" />
+                  <span class="form-error" id="name-error" role="alert">Please enter your name.</span>
+                </div>
+
+                <div class="form-group" id="fg-email">
+                  <label for="contact-email">Email address<span aria-hidden="true"> *</span></label>
+                  <input type="email" id="contact-email" name="email" autocomplete="email"
+                    required aria-required="true" aria-describedby="email-error email-hint"
+                    placeholder="alex@company.com" />
+                  <span class="form-hint" id="email-hint">We'll never share your email.</span>
+                  <span class="form-error" id="email-error" role="alert">Please enter a valid email address.</span>
+                </div>
+              </div>
+
+              <div class="form-group" id="fg-subject">
+                <label for="contact-subject">Subject</label>
+                <select id="contact-subject" name="subject" aria-describedby="subject-hint">
+                  <option value="">Select a topic</option>
+                  <option value="ux-role">UX Design / Research role</option>
+                  <option value="freelance">Freelance project</option>
+                  <option value="accessibility">Accessibility audit / Accessibility Conformance Report (ACR)</option>
+                  <option value="speaking">Speaking / workshop</option>
+                  <option value="other">Other</option>
+                </select>
+                <span class="form-hint" id="subject-hint">Optional — helps me respond faster.</span>
+              </div>
+
+              <div class="form-group" id="fg-message">
+                <label for="contact-message">Message<span aria-hidden="true"> *</span></label>
+                <textarea id="contact-message" name="message"
+                  required aria-required="true" aria-describedby="message-error"
+                  placeholder="Tell me about your project or opportunity…"></textarea>
+                <span class="form-error" id="message-error" role="alert">Please write a message.</span>
+              </div>
+
+              <button type="submit" class="btn btn-submit">
+                Send Message
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+                  <path d="M2 8h12M10 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+
+              <div class="form-success" id="form-success" role="status" aria-live="polite">
+                ✓ Message sent! I'll get back to you within 48 hours.
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p>
+        © <span id="footer-year"></span> Huda Hassoun.
+        Designing with sustainability and accessibility in mind ·
+        <a href="design-statement.html">Design Statement</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- ====== JAVASCRIPT ====== -->
+  <script>
+    /* Footer year */
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    /* ---- MOBILE NAV ---- */
+    (function () {
+      var btn  = document.querySelector('.nav-toggle');
+      var menu = document.getElementById('nav-menu');
+
+      btn.addEventListener('click', function () {
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        this.setAttribute('aria-label', expanded ? 'Open navigation menu' : 'Close navigation menu');
+        menu.classList.toggle('is-open', !expanded);
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!btn.contains(e.target) && !menu.contains(e.target)) {
+          btn.setAttribute('aria-expanded', 'false');
+          btn.setAttribute('aria-label', 'Open navigation menu');
+          menu.classList.remove('is-open');
+        }
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && menu.classList.contains('is-open')) {
+          btn.setAttribute('aria-expanded', 'false');
+          btn.setAttribute('aria-label', 'Open navigation menu');
+          menu.classList.remove('is-open');
+          btn.focus();
+        }
+      });
+    }());
+
+    /* ---- ROLE CARD CAROUSEL ----
+       Motion safety:
+         Transition:  600 ms smooth fade — NOT a flash/blink (monotonic opacity)
+         Interval:   3000 ms hold + 600 ms fade = 3600 ms per cycle = 0.28 Hz
+         Both rates are safely below the 2 Hz lower bound of the prohibited
+         flash range (2–55 Hz per WCAG 2.3 / Section 508 1194.21(b)).
+         prefers-reduced-motion: animation disabled; final card shown statically.
+    ---- */
+    (function () {
+      var roles = [
+        'a UX Designer',
+        'a UX Researcher',
+        'a Data Analyst',
+        'an Accessibility Architect'
+      ];
+
+      var cards      = roles.map(function (_, i) { return document.getElementById('role-' + i); });
+      var wrapper    = document.querySelector('.role-card-wrapper');
+      var liveRegion = document.getElementById('role-live');
+      var current    = 0;
+      var timer      = null;
+
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      /* For reduced-motion users: replace carousel with static final card */
+      if (prefersReduced.matches) {
+        var staticCard = document.createElement('span');
+        staticCard.className = 'role-card is-accent';
+        staticCard.textContent = roles[roles.length - 1];
+        staticCard.setAttribute('aria-hidden', 'false');
+        wrapper.innerHTML = '';
+        wrapper.appendChild(staticCard);
+        liveRegion.textContent = "Hi, I'm Huda, " + roles[roles.length - 1] +
+          ' who designs sustainable solutions for human-centered problems.';
+        return;
+      }
+
+      /* Initial screen-reader announcement */
+      liveRegion.textContent = "Hi, I'm Huda, " + roles[0] +
+        ' who designs sustainable solutions for human-centered problems.';
+
+      function advance () {
+        var prev = current;
+        current  = (current + 1) % cards.length;
+
+        /* Outgoing card: remove from flow, hide */
+        cards[prev].setAttribute('aria-hidden', 'true');
+
+        /* Incoming card: put back in flow first so wrapper sizes to it, then fade in */
+        cards[current].setAttribute('aria-hidden', 'false');
+
+        liveRegion.textContent = '';
+        requestAnimationFrame(function () {
+          liveRegion.textContent = "Hi, I'm Huda, " + roles[current] +
+            ' who designs sustainable solutions for human-centered problems.';
+        });
+
+        scheduleNext();
+      }
+
+      function scheduleNext () {
+        timer = setTimeout(advance, 3000);
+      }
+
+      scheduleNext();
+
+      prefersReduced.addEventListener('change', function (e) {
+        if (e.matches) { clearTimeout(timer); }
+        else           { scheduleNext(); }
+      });
+    }());
+
+    /* ---- SCROLL REVEAL ---- */
+    (function () {
+      if (!('IntersectionObserver' in window)) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var els = document.querySelectorAll('.reveal');
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      els.forEach(function (el) { obs.observe(el); });
+    }());
+
+    /* ---- CONTACT FORM VALIDATION ---- */
+    (function () {
+      var form    = document.getElementById('contact-form');
+      var success = document.getElementById('form-success');
+
+      function validate (groupId, condition) {
+        var group = document.getElementById(groupId);
+        group.classList.toggle('has-error', !condition);
+        return condition;
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var name    = document.getElementById('contact-name').value.trim();
+        var email   = document.getElementById('contact-email').value.trim();
+        var message = document.getElementById('contact-message').value.trim();
+        var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        var ok = true;
+        ok = validate('fg-name',    name.length > 0)    && ok;
+        ok = validate('fg-email',   emailRe.test(email)) && ok;
+        ok = validate('fg-message', message.length > 0) && ok;
+
+        if (!ok) {
+          var first = form.querySelector('.has-error input, .has-error textarea');
+          if (first) first.focus();
+          return;
+        }
+
+        form.style.display   = 'none';
+        success.style.display = 'block';
+        success.focus();
+      });
+
+      form.addEventListener('input', function (e) {
+        var group = e.target.closest('.form-group');
+        if (group) group.classList.remove('has-error');
+      });
+    }());
+  </script>
+
+</body>
+</html>

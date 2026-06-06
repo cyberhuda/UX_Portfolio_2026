@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Case study: Saffron & More Brand Identity Guidelines & Hi-Fi Prototype, by Huda Hassoun. Adobe Illustrator logo design, Figma UI prototype." />
+  <title>Saffron & More — Case Study · Huda Hassoun</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       SKIP LINK
+    ============================================= */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      z-index: 9999;
+      padding: 0.75rem 1.5rem;
+      background: #04724D;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 0 0 8px 8px;
+      text-decoration: none;
+      transition: top 0.15s;
+    }
+    .skip-link:focus { top: 0; outline: 3px solid #F3DC67; outline-offset: 2px; }
+
+    /* =============================================
+       DESIGN TOKENS — identical to index.html
+    ============================================= */
+    :root {
+      --clr-green-dark:   #04724D;
+      --clr-purple-raw:   #AD74C4;
+      --clr-purple-text:  #7A3E99;
+      --clr-green-mid:    #61A45E;
+      --clr-yellow:       #F3DC67;
+      --clr-ink:          #1A2A22;
+      --clr-body:         #3B4A40;
+      --clr-muted:        #5A6B5E;
+      --clr-white:        #FFFFFF;
+      --clr-off-white:    #F4F7F5;
+      --clr-green-tint:   #E8F4EE;
+      --clr-purple-tint:  #F3EAF8;
+      --clr-border:       #C8D5CC;
+
+      --ff-display: 'DM Serif Display', serif;
+      --ff-body:    'DM Sans', sans-serif;
+      --ff-mono:    'DM Mono', monospace;
+
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  20px;
+      --radius-xl:  32px;
+
+      --shadow-card:  0 2px 16px rgba(4,114,77,0.10);
+      --shadow-hover: 0 8px 32px rgba(4,114,77,0.18);
+
+      --nav-h:  72px;
+      --max-w: 1140px;
+    }
+
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 100%; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    body {
+      font-family: var(--ff-body);
+      color: var(--clr-ink);
+      background: var(--clr-white);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; height: auto; }
+
+    a {
+      color: var(--clr-green-dark);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    a:hover { color: var(--clr-purple-text); }
+    a:focus-visible {
+      outline: 3px solid var(--clr-green-dark);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--ff-display);
+      line-height: 1.2;
+      color: var(--clr-ink);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* =============================================
+       LAYOUT
+    ============================================= */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin-inline: auto;
+      padding-inline: clamp(1rem, 4vw, 2rem);
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--ff-mono);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--clr-green-dark);
+      margin-bottom: 0.875rem;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 2px;
+      background: var(--clr-green-dark);
+      border-radius: 2px;
+    }
+
+    /* =============================================
+       NAVIGATION (same pattern as index)
+    ============================================= */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--clr-border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 1.35rem;
+      color: var(--clr-ink);
+      text-decoration: none;
+    }
+    .nav-logo:hover { color: var(--clr-green-dark); }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0.25rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--clr-ink);
+      text-decoration: none;
+      padding: 0.5rem 0.875rem;
+      border-radius: var(--radius-sm);
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-links a:hover { background: var(--clr-green-tint); color: var(--clr-green-dark); }
+    .nav-links a:focus-visible { outline: 3px solid var(--clr-green-dark); outline-offset: 2px; }
+    .nav-cta {
+      background: var(--clr-green-dark) !important;
+      color: var(--clr-white) !important;
+      padding: 0.5rem 1.125rem !important;
+      border-radius: var(--radius-sm) !important;
+    }
+    .nav-cta:hover { background: var(--clr-purple-text) !important; color: var(--clr-white) !important; }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 2px solid var(--clr-ink);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.6rem;
+      cursor: pointer;
+      color: var(--clr-ink);
+      line-height: 1;
+    }
+    .nav-toggle:focus-visible { outline: 3px solid var(--clr-green-dark); outline-offset: 2px; }
+
+    @media (max-width: 768px) {
+      .nav-toggle { display: flex; align-items: center; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: var(--nav-h);
+        left: 0; right: 0;
+        background: var(--clr-white);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem;
+        border-bottom: 1px solid var(--clr-border);
+        box-shadow: var(--shadow-card);
+      }
+      .nav-links.is-open { display: flex; }
+      .nav-links a { padding: 0.75rem 1rem; }
+    }
+
+    /* =============================================
+       CASE STUDY HERO
+    ============================================= */
+    .cs-hero {
+      padding-top: calc(var(--nav-h) + 4rem);
+      padding-bottom: 4rem;
+      background: var(--clr-green-dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .cs-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%; right: -5%;
+      width: clamp(200px, 35vw, 480px);
+      height: clamp(200px, 35vw, 480px);
+      background: rgba(243,220,103,0.12);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .cs-hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cs-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--ff-mono);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(243,220,103,0.85);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color 0.15s;
+    }
+    .cs-back:hover { color: var(--clr-yellow); }
+    .cs-back:focus-visible { outline: 3px solid var(--clr-yellow); outline-offset: 3px; border-radius: 2px; }
+    .cs-back svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .cs-hero-label {
+      font-family: var(--ff-mono);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--clr-yellow);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .cs-hero-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 2px;
+      background: var(--clr-yellow);
+      border-radius: 2px;
+    }
+
+    .cs-hero-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      line-height: 1.1;
+      color: var(--clr-white);
+      max-width: 820px;
+      margin-bottom: 1.5rem;
+    }
+    .cs-hero-title em {
+      font-style: italic;
+      color: var(--clr-yellow);
+    }
+
+    .cs-hero-desc {
+      font-size: 1.0625rem;
+      color: rgba(255,255,255,0.78);
+      max-width: 60ch;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Meta chips */
+    .cs-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+    .cs-chip {
+      font-family: var(--ff-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      padding: 0.35em 0.85em;
+      border-radius: 100px;
+      border: 1px solid rgba(255,255,255,0.22);
+      color: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.08);
+    }
+    .cs-chip.is-tech {
+      background: rgba(243,220,103,0.15);
+      border-color: rgba(243,220,103,0.35);
+      color: var(--clr-yellow);
+    }
+
+    /* Keyword tags */
+    .cs-keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .cs-keyword {
+      font-family: var(--ff-mono);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      padding: 0.2em 0.6em;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: var(--radius-sm);
+    }
+
+    /* =============================================
+       SHARED SECTION STYLES
+    ============================================= */
+    .cs-section {
+      padding-block: clamp(3.5rem, 7vw, 6rem);
+    }
+    .cs-section + .cs-section {
+      border-top: 1px solid var(--clr-border);
+    }
+    .cs-section.bg-off { background: var(--clr-off-white); }
+    .cs-section.bg-dark {
+      background: var(--clr-ink);
+      color: var(--clr-white);
+    }
+    .cs-section.bg-dark .section-label { color: var(--clr-yellow); }
+    .cs-section.bg-dark .section-label::before { background: var(--clr-yellow); }
+    .cs-section.bg-dark h2,
+    .cs-section.bg-dark h3 { color: var(--clr-white); }
+    .cs-section.bg-dark p { color: rgba(255,255,255,0.75); }
+
+    .cs-section-header { margin-bottom: 2.5rem; }
+    .cs-section-heading {
+      font-size: clamp(1.625rem, 3.5vw, 2.5rem);
+      margin-bottom: 0.75rem;
+    }
+    .cs-section-sub {
+      font-size: 1.0625rem;
+      color: var(--clr-muted);
+      max-width: 58ch;
+      line-height: 1.7;
+    }
+
+    /* Prose blocks */
+    .cs-prose {
+      font-size: 1.0625rem;
+      color: var(--clr-muted);
+      line-height: 1.8;
+      max-width: 72ch;
+    }
+    .cs-prose + .cs-prose { margin-top: 1rem; }
+    .cs-prose strong { color: var(--clr-ink); font-weight: 600; }
+
+    /* Btn */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--ff-body);
+      font-weight: 600;
+      font-size: 0.9375rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, transform 0.12s;
+      border: 2px solid transparent;
+    }
+    .btn:focus-visible { outline: 3px solid var(--clr-green-dark); outline-offset: 3px; }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--clr-green-dark); color: var(--clr-white); }
+    .btn-primary:hover { background: var(--clr-purple-text); color: var(--clr-white); }
+    .btn-outline { background: transparent; color: var(--clr-ink); border-color: var(--clr-ink); }
+    .btn-outline:hover { background: var(--clr-ink); color: var(--clr-white); }
+
+    /* =============================================
+       CLIENT STORY — two-column layout
+    ============================================= */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 5vw, 4.5rem);
+      align-items: start;
+    }
+    @media (max-width: 768px) { .story-grid { grid-template-columns: 1fr; } }
+
+    .story-card {
+      background: var(--clr-green-tint);
+      border: 1px solid rgba(4,114,77,0.18);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+    }
+    .story-card h3 {
+      font-size: 1.125rem;
+      margin-bottom: 0.75rem;
+      color: var(--clr-green-dark);
+    }
+    .story-card p {
+      font-size: 0.9375rem;
+      color: var(--clr-body);
+      line-height: 1.75;
+    }
+
+    .brand-pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    .brand-pill {
+      font-family: var(--ff-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      background: var(--clr-white);
+      color: var(--clr-green-dark);
+      border: 1px solid rgba(4,114,77,0.25);
+      padding: 0.3em 0.75em;
+      border-radius: 100px;
+    }
+
+    /* =============================================
+       PDF PAGES — image grid display
+    ============================================= */
+    .pdf-grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+    .pdf-grid.cols-1 { grid-template-columns: 1fr; }
+    .pdf-grid.cols-2 { grid-template-columns: repeat(auto-fill, minmax(min(460px,100%), 1fr)); }
+    .pdf-grid.cols-3 { grid-template-columns: repeat(auto-fill, minmax(min(320px,100%), 1fr)); }
+
+    .pdf-page {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--clr-border);
+      box-shadow: var(--shadow-card);
+      transition: box-shadow 0.2s, transform 0.2s;
+      background: var(--clr-white);
+    }
+    .pdf-page:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-3px);
+    }
+    .pdf-page img {
+      width: 100%;
+      display: block;
+    }
+    .pdf-page-caption {
+      padding: 0.875rem 1rem;
+      font-family: var(--ff-mono);
+      font-size: 0.75rem;
+      color: var(--clr-muted);
+      letter-spacing: 0.04em;
+      border-top: 1px solid var(--clr-border);
+    }
+
+    /* Wide page (landscape) full bleed */
+    .pdf-page.full-bleed { grid-column: 1 / -1; }
+
+    /* =============================================
+       IDENTITY SECTION — colour swatches
+    ============================================= */
+    .swatch-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .swatch {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-width: 110px;
+    }
+    .swatch-block {
+      width: 100%;
+      height: 64px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .swatch-name {
+      font-family: var(--ff-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--clr-ink);
+    }
+    .swatch-hex {
+      font-family: var(--ff-mono);
+      font-size: 0.6875rem;
+      color: var(--clr-muted);
+    }
+
+    /* Primary label badge */
+    .swatch-badge {
+      font-family: var(--ff-mono);
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.15em 0.5em;
+      border-radius: 4px;
+      background: var(--clr-green-tint);
+      color: var(--clr-green-dark);
+      display: inline-block;
+      margin-top: 0.1rem;
+    }
+    .swatch-badge.is-secondary {
+      background: var(--clr-purple-tint);
+      color: var(--clr-purple-text);
+    }
+
+    /* =============================================
+       TYPOGRAPHY SHOWCASE
+    ============================================= */
+    .type-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(300px,100%), 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .type-card {
+      background: var(--clr-white);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+    .type-card-name {
+      font-family: var(--ff-mono);
+      font-size: 0.75rem;
+      color: var(--clr-green-dark);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+    .type-card-role {
+      font-size: 0.8125rem;
+      color: var(--clr-muted);
+      margin-bottom: 1rem;
+    }
+    .type-sample-source {
+      font-family: 'Source Sans Pro', 'Source Sans 3', sans-serif;
+      font-size: 1.5rem;
+      color: var(--clr-ink);
+      line-height: 1.3;
+    }
+    .type-sample-iskoola {
+      font-family: 'Iskoola Pota', Georgia, serif;
+      font-size: 1.25rem;
+      color: var(--clr-ink);
+      line-height: 1.4;
+    }
+    .type-sample-chinese {
+      font-size: 1.5rem;
+      color: var(--clr-ink);
+      line-height: 1.4;
+    }
+
+    /* =============================================
+       HIGHLIGHT CALLOUT
+    ============================================= */
+    .callout {
+      background: var(--clr-purple-tint);
+      border-left: 4px solid var(--clr-purple-text);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 1.25rem 1.5rem;
+      margin-block: 2rem;
+    }
+    .callout p {
+      font-size: 1rem;
+      color: var(--clr-ink);
+      line-height: 1.7;
+    }
+    .callout p strong { color: var(--clr-purple-text); }
+
+    .callout.is-green {
+      background: var(--clr-green-tint);
+      border-color: var(--clr-green-dark);
+    }
+    .callout.is-green p strong { color: var(--clr-green-dark); }
+
+    /* =============================================
+       TWO-UP CONTENT GRID
+    ============================================= */
+    .two-up {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(1.5rem, 4vw, 3rem);
+      align-items: start;
+    }
+    @media (max-width: 700px) { .two-up { grid-template-columns: 1fr; } }
+
+    /* =============================================
+       STYLE GUIDE LABELS
+    ============================================= */
+    .sg-label {
+      font-family: var(--ff-display);
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      color: var(--clr-ink);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--clr-border);
+    }
+
+    /* =============================================
+       FULL-WIDTH MOCKUP STRIP
+    ============================================= */
+    .mockup-strip {
+      background: var(--clr-off-white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--clr-border);
+    }
+    .mockup-strip img { width: 100%; display: block; }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .site-footer {
+      background: #021F14;
+      color: #7AA890;
+      padding-block: 2rem;
+      text-align: center;
+      font-size: 0.875rem;
+    }
+    .site-footer a { color: var(--clr-yellow); text-decoration: none; }
+    .site-footer a:hover { text-decoration: underline; }
+    .site-footer a:focus-visible { outline: 3px solid var(--clr-yellow); outline-offset: 3px; }
+
+    /* =============================================
+       SCROLL REVEAL
+    ============================================= */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      .reveal.is-visible { opacity: 1; transform: none; }
+    }
+
+    /* =============================================
+       RESPONSIVE UTILITIES
+    ============================================= */
+    @media (max-width: 600px) {
+      .pdf-grid.cols-2,
+      .pdf-grid.cols-3 { grid-template-columns: 1fr; }
+      .two-up { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ====== NAV ====== -->
+  <header role="banner">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="nav-logo" href="index.html" aria-label="Huda Hassoun — home">Huda Hassoun</a>
+
+        <button class="nav-toggle" aria-controls="nav-menu" aria-expanded="false" aria-label="Open navigation menu">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+            <rect x="2" y="5"  width="18" height="2" rx="1" fill="currentColor"/>
+            <rect x="2" y="10" width="18" height="2" rx="1" fill="currentColor"/>
+            <rect x="2" y="15" width="18" height="2" rx="1" fill="currentColor"/>
+          </svg>
+        </button>
+
+        <ul class="nav-links" id="nav-menu" role="list">
+          <li><a href="index.html#case-studies">Case Studies</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#contact" class="nav-cta">Let's Talk</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+
+    <!-- ====== HERO ====== -->
+    <div class="cs-hero" role="region" aria-label="Case study overview">
+      <div class="container cs-hero-inner">
+
+        <a class="cs-back" href="index.html#case-studies">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+            <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          All Case Studies
+        </a>
+
+        <p class="cs-hero-label">Case Study 01</p>
+
+        <h1 class="cs-hero-title">
+          <em>Saffron &amp; More.</em> Brand Identity Guidelines &amp; Hi-Fi Prototype
+        </h1>
+
+        <p class="cs-hero-desc">
+          A bilingual brand identity system and mobile shopping prototype for Saffron &amp; More, a bulk dry-goods store in Ann Arbor, Michigan.
+        </p>
+
+        <div class="cs-meta-row" role="list" aria-label="Project technologies">
+          <span class="cs-chip is-tech" role="listitem">Adobe Illustrator</span>
+          <span class="cs-chip is-tech" role="listitem">Figma</span>
+          <span class="cs-chip" role="listitem">Brand Identity</span>
+          <span class="cs-chip" role="listitem">UI Design</span>
+          <span class="cs-chip" role="listitem">Hi-Fi Prototype</span>
+        </div>
+
+
+      </div>
+    </div>
+
+    <!-- ====== 01 · CLIENT STORY ====== -->
+    <section class="cs-section" aria-labelledby="section-client">
+      <div class="container">
+        <div class="cs-section-header reveal">
+          <p class="section-label">01 · Client Brief</p>
+          <h2 class="cs-section-heading" id="section-client">The Client Story</h2>
+          <p class="cs-section-sub">
+          </p>
+        </div>
+
+        <div class="story-grid">
+
+          <div class="reveal">
+            <p class="cs-prose">
+              Saffron &amp; More is a small bulk dry-goods store in Ann Arbor, Michigan, run by clients Fan and Liam. The store sells a range of goods including spices, nuts, seeds, grains, legumes, healing herbs, oils, coffee, tea, and candy, all sourced with quality and sustainability in mind. Fan and Liam came up with the tagline, <em>"Dry Goods for All,"</em> to welcome Ann Arbor residents and University of Michigan students to try bulk shopping.
+            </p>
+            <p class="cs-prose">
+              A distinguishing feature of the brand is its bilingual identity. Fan wanted to celebrate the Chinese name for saffron — <strong>藏红花 (Zàng Hóng Huā)</strong> — by running the English and Chinese names together as a visual and cultural statement, highlighting the store's heritage and community.
+            </p>
+
+            <div class="callout is-green" style="margin-top: 1.5rem;">
+              <p>"The brand should feel approachable and welcoming to all customers, regardless of their knowledge of bulk goods." — <strong>Client Brief</strong></p>
+            </div>
+          </div>
+
+          <div class="reveal">
+            <div class="story-card">
+              <h3>Target Audience</h3>
+              <p>Ann Arbor residents and University of Michigan students who are environmentally conscious, prefer to shop at stores that promote sustainable practices, and seek a convenient local source for high-quality, specialty ingredients, while actively reducing their packaging waste.</p>
+            </div>
+
+            <div class="story-card" style="margin-top: 1rem;">
+              <h3>Brand Personality</h3>
+              <p>The brand should feel organic, natural, simple yet elegant, modern, and minimalist; conveying a sense of high-quality, sustainably sourced products.</p>
+              <div class="brand-pill-grid">
+                <span class="brand-pill">Organic</span>
+                <span class="brand-pill">Natural</span>
+                <span class="brand-pill">Minimalist</span>
+                <span class="brand-pill">Modern</span>
+                <span class="brand-pill">Elegant</span>
+                <span class="brand-pill">Sustainable</span>
+                <span class="brand-pill">Approachable</span>
+              </div>
+            </div>
+
+            <div class="story-card" style="margin-top: 1rem;">
+              <h3>Logo Brief</h3>
+              <p>Simple yet memorable. Modern, minimalist, clean lines. Versatile across print, web, and packaging. Must include a bilingual variant pairing the English name with the Chinese 藏红花.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== 02 · BRAND IDENTITY COVER ====== -->
+    <section class="cs-section bg-off" aria-labelledby="section-identity">
+      <div class="container">
+        <div class="cs-section-header reveal">
+          <p class="section-label">02 · Brand Identity Guidelines</p>
+          <h2 class="cs-section-heading" id="section-identity">Identity System</h2>
+          <p class="cs-section-sub">
+            I began by building a complete brand identity guide including logo concept, color palette, typeface selection, scalability rules, mandatory free space, and mark variants, in Adobe Illustrator.
+          </p>
+          <p class="cs-section-sub" style="margin-top: 0.75rem;">
+            I used vector illustrations to design the brand's logo.
+          </p>
+        </div>
+
+        <!-- Sketches -->
+        <div class="pdf-grid cols-2 reveal" style="margin-bottom: 2rem;">
+          <div class="pdf-page">
+            <img
+              src="assets/cs1/Sketches.png"
+              alt="Ideation sketches of logo design"
+              id="identity-sketches"
+            />
+            <p class="pdf-page-caption">Ideation Sketches — Logo design exploration</p>
+          </div>
+          <div class="pdf-page">
+            <img
+              src="assets/cs1/Vector_Drawings.png"
+              alt="Vector drawings of saffron flowers, ground saffron, and a bowl"
+              id="identity-vectors"
+            />
+            <p class="pdf-page-caption">Vector Drawings — Saffron flowers, ground saffron, and bowl</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== 03 · COLOUR PALETTE ====== -->
+    <section class="cs-section" aria-labelledby="section-colours">
+      <div class="container">
+        <div class="cs-section-header reveal">
+          <p class="section-label">03 · Color Palette</p>
+          <h2 class="cs-section-heading" id="section-colours">Brand Colors</h2>
+          <p class="cs-section-sub">
+            Inspired by the saffron flower's native regions across Iran, Kashmir, and the Caucasus, I developed a color palette of Brilliant Violet, Golden Pollen, and Persian Red to express the flower's vibrance.
+          </p>
+        </div>
+
+        <div class="two-up reveal">
+          <div>
+            <p class="sg-label">Primary</p>
+            <div class="swatch-grid">
+              <div class="swatch">
+                <div class="swatch-block" style="background:#BD9CDE;" aria-label="Brilliant Violet colour swatch"></div>
+                <span class="swatch-badge">Primary</span>
+                <span class="swatch-name">Brilliant Violet</span>
+                <span class="swatch-hex">#BD9CDE</span>
+              </div>
+              <div class="swatch">
+                <div class="swatch-block" style="background:#F0574A;" aria-label="Persian Red colour swatch"></div>
+                <span class="swatch-badge">Primary</span>
+                <span class="swatch-name">Persian Red</span>
+                <span class="swatch-hex">#F0574A</span>
+              </div>
+              <div class="swatch">
+                <div class="swatch-block" style="background:#F8B557;" aria-label="Golden Pollen colour swatch"></div>
+                <span class="swatch-badge">Primary</span>
+                <span class="swatch-name">Golden Pollen</span>
+                <span class="swatch-hex">#F8B557</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="sg-label">Secondary</p>
+            <div class="swatch-grid">
+              <div class="swatch">
+                <div class="swatch-block" style="background:#D9C8E9;" aria-label="Lilac colour swatch"></div>
+                <span class="swatch-badge is-secondary">Secondary</span>
+                <span class="swatch-name">Lilac</span>
+                <span class="swatch-hex">#D9C8E9</span>
+              </div>
+              <div class="swatch">
+                <div class="swatch-block" style="background:#F2A69F;" aria-label="Apricot colour swatch"></div>
+                <span class="swatch-badge is-secondary">Secondary</span>
+                <span class="swatch-name">Apricot</span>
+                <span class="swatch-hex">#F2A69F</span>
+              </div>
+              <div class="swatch">
+                <div class="swatch-block" style="background:#F6E5CE;" aria-label="Barley colour swatch"></div>
+                <span class="swatch-badge is-secondary">Secondary</span>
+                <span class="swatch-name">Barley</span>
+                <span class="swatch-hex">#F6E5CE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== 04 · TYPEFACE ====== -->
+    <section class="cs-section bg-off" aria-labelledby="section-type">
+      <div class="container">
+        <div class="cs-section-header reveal">
+          <p class="section-label">04 · Typography</p>
+          <h2 class="cs-section-heading" id="section-type">Typeface Selection</h2>
+          <p class="cs-section-sub">
+            Three typefaces were used to carry the brand's bilingual identity, supporting legibility, cultural authenticity, and brand personality.
+          </p>
+        </div>
+
+        <div class="type-grid reveal">
+          <div class="type-card">
+            <p class="type-card-name">Source Sans Pro</p>
+            <p class="type-card-role">English Logotype &amp; Headings · Sans Serif · Regular, Bold, Italic</p>
+            <p class="type-sample-source">Saffron &amp; More</p>
+            <p class="type-sample-source" style="font-weight:700; margin-top:0.5rem;">Dry Goods For All</p>
+            <p style="font-size:0.875rem; color:var(--clr-muted); margin-top:0.875rem; line-height:1.6;">Designed by Paul D. Hunt, Source Sans Pro is Adobe's first open source typeface family. A sans-serif intended for user interfaces which remains clean, versatile, and readable at all sizes.</p>
+          </div>
+
+          <div class="type-card">
+            <p class="type-card-name">Iskoola Pota</p>
+            <p class="type-card-role">Tagline · Serif · Regular, Bold (no italic)</p>
+            <p class="type-sample-iskoola">Dry Goods For All</p>
+            <p class="type-sample-iskoola" style="font-weight:700; margin-top:0.5rem;">Dry Goods For All</p>
+            <p style="font-size:0.875rem; color:var(--clr-muted); margin-top:0.875rem; line-height:1.6;">Originally designed for Sinhala script, Iskoola Pota brings classic proportions and elegance to the tagline.</p>
+          </div>
+
+          <div class="type-card">
+            <p class="type-card-name">方正楷体 GB18030</p>
+            <p class="type-card-role">Chinese Logotype · Sans Serif · Regular</p>
+            <p class="type-sample-chinese">藏 红 花</p>
+            <p style="font-size:0.875rem; color:var(--clr-muted); margin-top:0.875rem; line-height:1.6;">方正楷体 GB18030 is one of the few typefaces that supports simplified Chinese characters.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====== 05 · SCALABILITY + FREE SPACE ====== -->
+    <section class="cs-section" aria-labelledby="section-scale">
+      <div class="container">
+        <div class="cs-section-header reveal">
+          <p class="section-label">05 · Scalability &amp; Free Space</p>
+          <h2 class="cs-section-heading" id="section-scale">Logo Usage Rules</h2>
+          <p class="cs-section-sub">
+            Precise guidelines governing minimum sizes, variant selection by width, and the mandatory clear space that protects the logo's integrity across every application.
+          </p>
+        </div>
+
+        <div class="callout reveal">
+          <p>Grids and hierarchy were applied throughout the identity system. Each logotype variant is governed by width thresholds. The stacked logo is used at 1″ or wider, while the extended at 4″ or wider, ensuring consistent brand presence from a business card to a storefront banner.</p>
+        </div>
+
+        <h3 class="sg-label reveal" style="margin-top: 2rem;">Logo Scalability</h3>
+        <div class="pdf-grid cols-1 reveal">
+          <div class="pdf-page full-bleed">
+            <img
+              src="assets/cs1/Logo_scalability.png"
+              alt="Saffron logos at different scales and sizes"
+              id="identity-scale"
+            />
+          </div>
+        </div>
+
+        <h3 class="sg-label reveal" style="margin-top: 2.5rem;">Free Space</h3>
+        <div class="pdf-grid cols-1 reveal">
+          <div class="pdf-page full-bleed">
+            <img
+              src="assets/cs1/Free_space.png"
+              alt="Mandatory free space surround different logo variants."
+              id="identity-freespace"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== 07 · HI-FI PROTOTYPE ====== -->
+    <section class="cs-section" aria-labelledby="section-hifi">
+      <div class="container">
+        <div class="cs-section-header reveal">
+          <p class="section-label">07 · Hi-Fi Prototype</p>
+          <h2 class="cs-section-heading" id="section-hifi">Figma Mobile Prototype</h2>
+          <p class="cs-section-sub">
+            I designed a high-fidelity iOS prototype from the brand's UI identity, with a full style guide spanning atoms, molecules, and organisms.
+          </p>
+        </div>
+
+        <!-- UI Design Concept -->
+        <div class="two-up reveal" style="margin-bottom: 2.5rem;">
+          <div>
+            <p class="cs-prose"><strong>Design Philosophy:</strong> The app was designed to meet Saffron &amp; More's expectations of being "organic, natural, simple yet elegant, modern, and minimalist." The design leverages readability, efficiency, and minimalism throughout.</p>
+            <p class="cs-prose" style="margin-top: 1rem;"><strong>Typography:</strong> The Inter typeface was selected for its sleek legibility and suitability for user interfaces. All headings use 8-point incremental font sizes, consistent with design system conventions.</p>
+            <p class="cs-prose" style="margin-top: 1rem;"><strong>Navigation:</strong> A bottom tab bar with Home, Scan, Shop, and Account provides clear wayfinding. Hierarchy is maintained through size, weight, and Persian red active-state indicators.</p>
+          </div>
+          <div>
+            <p class="cs-prose"><strong>Color:</strong> Vibrant Violet dominates interactive elements (buttons, CTAs). Persian Red signals active screen state in the tab bar. Barley provides a warm coupon background. Lilac is used for arrows, dividers, and the QR code background.</p>
+            <p class="cs-prose" style="margin-top: 1rem;"><strong>Grid &amp; Hierarchy:</strong> The layout follows a consistent 8-point grid. Product cards, section headers, and list items are structured to create a clear visual hierarchy, guiding users from browsing to purchase with minimal friction.</p>
+          </div>
+        </div>
+
+
+        <!-- Final screens -->
+        <div class="cs-section-header reveal" style="margin-top: 1rem;">
+          <h3 class="sg-label">Final Screens</h3>
+          <p class="cs-section-sub">
+            The complete iOS prototype spans seven distinct screens representing the full user journey from login to checkout.
+          </p>
+        </div>
+        <div class="mockup-strip reveal">
+          <img
+            src="assets/cs1/Prototype.png"
+            alt="High fidelity prototype of a shopping application"
+            id="hifi-screens"
+          />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====== 08 · NEXT CASE STUDY ====== -->
+    <section class="cs-section bg-off" aria-labelledby="section-next">
+      <div class="container" style="text-align: center;">
+        <p class="section-label" style="justify-content: center;">Next</p>
+        <h2 class="cs-section-heading reveal" id="section-next" style="margin-inline: auto;">More Work</h2>
+        <p class="cs-section-sub reveal" style="margin-inline: auto; margin-bottom: 2rem;">Explore more projects from the portfolio.</p>
+        <div class="reveal" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <a class="btn btn-primary" href="index.html#case-studies">
+            All Case Studies
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a class="btn btn-outline" href="index.html#contact">Get in Touch</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p>
+        © <span id="footer-year"></span> Huda Hassoun.
+        Designing with sustainability and accessibility in mind ·
+        <a href="design-statement.html">Design Statement</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    /* Footer year */
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    /* ---- MOBILE NAV ---- */
+    (function () {
+      var btn  = document.querySelector('.nav-toggle');
+      var menu = document.getElementById('nav-menu');
+      btn.addEventListener('click', function () {
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        this.setAttribute('aria-label', expanded ? 'Open navigation menu' : 'Close navigation menu');
+        menu.classList.toggle('is-open', !expanded);
+      });
+      document.addEventListener('click', function (e) {
+        if (!btn.contains(e.target) && !menu.contains(e.target)) {
+          btn.setAttribute('aria-expanded', 'false');
+          btn.setAttribute('aria-label', 'Open navigation menu');
+          menu.classList.remove('is-open');
+        }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && menu.classList.contains('is-open')) {
+          btn.setAttribute('aria-expanded', 'false');
+          btn.setAttribute('aria-label', 'Open navigation menu');
+          menu.classList.remove('is-open');
+          btn.focus();
+        }
+      });
+    }());
+
+    /* ---- REPLACE PLACEHOLDER src WITH ACTUAL PDF PAGE IMAGES ---- */
+    /*
+      The PDF pages are embedded as object URLs generated from the
+      rasterised images. On a live server these would be real file paths
+      (e.g. /assets/cs1/identity-p1.jpg). The mapping below makes it
+      trivial to swap placeholders for real paths when deploying.
+    */
+    (function () {
+      var pages = [
+        { id: 'identity-sketches',  path: 'assets/cs1/Sketches.png' },
+        { id: 'identity-vectors',   path: 'assets/cs1/Vector_Drawings.png' },
+        { id: 'identity-scale',     path: 'assets/cs1/Logo_scalability.png' },
+        { id: 'identity-freespace', path: 'assets/cs1/Free_space.png' },
+        { id: 'hifi-screens',       path: 'assets/cs1/Prototype.png' }
+      ];
+      pages.forEach(function (p) {
+        var el = document.getElementById(p.id);
+        if (el) el.src = p.path;
+      });
+    }());
+
+    /* ---- SCROLL REVEAL ---- */
+    (function () {
+      if (!('IntersectionObserver' in window)) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(function (el) { obs.observe(el); });
+    }());
+  </script>
+
+</body>
+</html>
