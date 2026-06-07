@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Huda Hassoun's Design Statement — a UX researcher and designer whose approach is human-centered, sustainable, functional, and beautiful." />
+  <title>Design Statement · Huda Hassoun</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       SKIP LINK
+    ============================================= */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      z-index: 9999;
+      padding: 0.75rem 1.5rem;
+      background: #04724D;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 0 0 8px 8px;
+      text-decoration: none;
+      transition: top 0.15s;
+    }
+    .skip-link:focus { top: 0; outline: 3px solid #F3DC67; outline-offset: 2px; }
+
+    /* =============================================
+       DESIGN TOKENS
+    ============================================= */
+    :root {
+      --clr-green-dark:   #04724D;
+      --clr-purple-text:  #7A3E99;
+      --clr-yellow:       #F3DC67;
+      --clr-ink:          #1A2A22;
+      --clr-muted:        #5A6B5E;
+      --clr-white:        #FFFFFF;
+      --clr-off-white:    #F4F7F5;
+      --clr-green-tint:   #E8F4EE;
+      --clr-purple-tint:  #F3EAF8;
+      --clr-border:       #C8D5CC;
+
+      --ff-display: 'DM Serif Display', serif;
+      --ff-body:    'DM Sans', sans-serif;
+      --ff-mono:    'DM Mono', monospace;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+
+      --shadow-card: 0 2px 16px rgba(4,114,77,0.10);
+
+      --nav-h:  72px;
+      --max-w: 1140px;
+    }
+
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 100%; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+    }
+
+    body {
+      font-family: var(--ff-body);
+      color: var(--clr-ink);
+      background: var(--clr-white);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--clr-green-dark);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    a:hover { color: var(--clr-purple-text); }
+    a:focus-visible { outline: 3px solid var(--clr-green-dark); outline-offset: 3px; border-radius: 2px; }
+
+    h1, h2, h3 { font-family: var(--ff-display); line-height: 1.2; color: var(--clr-ink); }
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* =============================================
+       LAYOUT
+    ============================================= */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin-inline: auto;
+      padding-inline: clamp(1rem, 4vw, 2rem);
+    }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--clr-border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-size: 1.35rem;
+      color: var(--clr-ink);
+      text-decoration: none;
+    }
+    .nav-logo:hover { color: var(--clr-green-dark); }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 0.25rem;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--clr-ink);
+      text-decoration: none;
+      padding: 0.5rem 0.875rem;
+      border-radius: var(--radius-sm);
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-links a:hover { background: var(--clr-green-tint); color: var(--clr-green-dark); }
+    .nav-links a:focus-visible { outline: 3px solid var(--clr-green-dark); outline-offset: 2px; }
+    .nav-cta {
+      background: var(--clr-green-dark) !important;
+      color: var(--clr-white) !important;
+      padding: 0.5rem 1.125rem !important;
+      border-radius: var(--radius-sm) !important;
+    }
+    .nav-cta:hover { background: var(--clr-purple-text) !important; color: var(--clr-white) !important; }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: 2px solid var(--clr-ink);
+      border-radius: var(--radius-sm);
+      padding: 0.4rem 0.6rem;
+      cursor: pointer;
+      color: var(--clr-ink);
+      line-height: 1;
+    }
+    .nav-toggle:focus-visible { outline: 3px solid var(--clr-green-dark); outline-offset: 2px; }
+
+    @media (max-width: 768px) {
+      .nav-toggle { display: flex; align-items: center; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: var(--nav-h); left: 0; right: 0;
+        background: var(--clr-white);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem;
+        border-bottom: 1px solid var(--clr-border);
+        box-shadow: var(--shadow-card);
+      }
+      .nav-links.is-open { display: flex; }
+      .nav-links a { padding: 0.75rem 1rem; }
+    }
+
+    /* =============================================
+       PAGE HERO
+    ============================================= */
+    .page-hero {
+      padding-top: calc(var(--nav-h) + 4rem);
+      padding-bottom: 3.5rem;
+      background: var(--clr-green-dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%; right: -5%;
+      width: clamp(180px, 30vw, 420px);
+      height: clamp(180px, 30vw, 420px);
+      background: rgba(243,220,103,0.10);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .page-hero-inner { position: relative; z-index: 1; }
+
+    .page-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--ff-mono);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(243,220,103,0.85);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color 0.15s;
+    }
+    .page-back:hover { color: var(--clr-yellow); }
+    .page-back:focus-visible { outline: 3px solid var(--clr-yellow); outline-offset: 3px; border-radius: 2px; }
+    .page-back svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    .page-hero-label {
+      font-family: var(--ff-mono);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--clr-yellow);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .page-hero-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 2px;
+      background: var(--clr-yellow);
+      border-radius: 2px;
+    }
+
+    .page-hero-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2.25rem, 5vw, 3.75rem);
+      line-height: 1.1;
+      color: var(--clr-white);
+      max-width: 700px;
+    }
+
+    /* =============================================
+       STATEMENT BODY
+    ============================================= */
+    .statement-body {
+      padding-block: clamp(3.5rem, 7vw, 6rem);
+      background: var(--clr-white);
+    }
+
+    /* Constrained prose column */
+    .prose-col {
+      max-width: 72ch;
+    }
+
+    .prose-col p {
+      font-size: clamp(1rem, 1.5vw, 1.125rem);
+      color: var(--clr-muted);
+      line-height: 1.85;
+      margin-bottom: 0;
+    }
+
+    .prose-col > .reveal + .reveal {
+      margin-top: 1em;
+    }
+    .prose-col p:last-child { margin-bottom: 0; }
+
+    .prose-col p strong {
+      color: var(--clr-ink);
+      font-weight: 600;
+    }
+
+    /* Section divider label */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--ff-mono);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--clr-green-dark);
+      margin-bottom: 2rem;
+    }
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 24px; height: 2px;
+      background: var(--clr-green-dark);
+      border-radius: 2px;
+    }
+
+    /* =============================================
+       SCROLL REVEAL
+    ============================================= */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+      .reveal.is-visible { opacity: 1; transform: none; }
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .site-footer {
+      background: #021F14;
+      color: #7AA890;
+      padding-block: 2rem;
+      text-align: center;
+      font-size: 0.875rem;
+    }
+    .site-footer a { color: var(--clr-yellow); text-decoration: none; }
+    .site-footer a:hover { text-decoration: underline; }
+    .site-footer a:focus-visible { outline: 3px solid var(--clr-yellow); outline-offset: 3px; }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ====== NAV ====== -->
+  <header role="banner">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <div class="container nav-inner">
+        <a class="nav-logo" href="index.html" aria-label="Huda Hassoun — home">Huda Hassoun</a>
+
+        <button class="nav-toggle" aria-controls="nav-menu" aria-expanded="false" aria-label="Open navigation menu">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true" focusable="false">
+            <rect x="2" y="5"  width="18" height="2" rx="1" fill="currentColor"/>
+            <rect x="2" y="10" width="18" height="2" rx="1" fill="currentColor"/>
+            <rect x="2" y="15" width="18" height="2" rx="1" fill="currentColor"/>
+          </svg>
+        </button>
+
+        <ul class="nav-links" id="nav-menu" role="list">
+          <li><a href="index.html#case-studies">Case Studies</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#contact" class="nav-cta">Let's Talk</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ====== MAIN ====== -->
+  <main id="main-content" tabindex="-1">
+
+    <!-- PAGE HERO -->
+    <div class="page-hero" role="region" aria-label="Page header">
+      <div class="container page-hero-inner">
+
+        <a class="page-back" href="index.html">
+          <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+            <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back to Portfolio
+        </a>
+
+        <p class="page-hero-label">Huda Hassoun</p>
+        <h1 class="page-hero-title">Design Statement</h1>
+
+      </div>
+    </div>
+
+    <!-- STATEMENT BODY -->
+    <section class="statement-body" aria-labelledby="statement-heading">
+      <div class="container">
+
+        <p class="section-label">
+          <span class="sr-only">Section: </span>About &amp; Philosophy
+        </p>
+
+        <div class="prose-col">
+
+          <!-- Bio -->
+          <div class="reveal">
+            <p>
+              I'm Huda Hassoun, a UX researcher and designer living in Southeast Michigan. I am a 2026–2027 Fulbright award grantee and a graduate of the University of Michigan, where I earned my Bachelor's in Cognitive Science and Linguistics and my Master's in UX Research and Design. Professionally, I have experience working in the sectors of technology, education, international diplomacy, and public government. Outside my design work, I love reading, traveling, and language learning.
+            </p>
+          </div>
+
+          <!-- Philosophy: lived experience -->
+          <div class="reveal">
+            <p>
+              I believe one's lived experience and physical environment shapes their approach to design. Where I live, the culture I was raised in, the physical environment I occupied, and the communities I interact with and am a member of have all influenced what I prioritize in my designs. Design is where mechanics and functionality, or engineering, meet culture and philosophy, or ethnography, and intersect with beauty and aesthetics, or art and architecture.
+            </p>
+          </div>
+
+          <!-- Community duty -->
+          <div class="reveal">
+            <p>
+              As a designer living in Southeast Michigan, it is my duty to serve my Metro Detroit community while upholding equity and access for all. My approach to design is human-centered, sustainable, functional, and beautiful. People and their pain points are at the heart of my design process as active participants, and not only as end users. When designing solutions, it should always be done with care, purpose, and intention. I will not design for the sake of it, but only if I find a gap in functionality and believe I am the one to fill it.
+            </p>
+          </div>
+
+          <!-- Art & accessibility -->
+          <div class="reveal">
+            <p>
+              Art and beauty are necessary for the human experience, and are why we stay alive; a design should be beautiful, distinguished, and invoke emotions. In my design philosophy, accessibility is not an afterthought of functionality in human-centered design, it is synonymous with it. If a designed solution is inaccessible, I do not believe that solution actually exists.
+            </p>
+          </div>
+
+          <!-- Linguist / designer -->
+          <div class="reveal">
+            <p>
+              As a linguist, analyst, and now designer, I want to create designs that are both beautiful and inspired, without sacrificing accessibility or belonging.
+            </p>
+          </div>
+
+          <!-- Tree / design quote -->
+          <div class="reveal">
+            <p>
+              As the old saying goes,<br>
+              <em>If a tree falls in a forest and no one is around to hear it, does it make a sound?</em><br>
+              I raise you,<br>
+              <em>If a solution is designed and cannot be accessed, does it actually exist?</em>
+            </p>
+          </div>
+
+          <!-- Closing -->
+          <div class="reveal">
+            <p>
+              My lived experience, physical upbringing, academic journey, and professional career have allotted me power, privilege, and influence over design decisions. While these are not inherently negative things, they come with a responsibility in how they are exercised. I want to leverage these things in equating <strong>accessibility with functionality</strong>, <strong>community with the physical environment</strong>, and <strong>beauty as mandatory</strong> while designing sustainable solutions for human-centered problems.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p>
+        © <span id="footer-year"></span> Huda Hassoun.
+        Designing with sustainability and accessibility in mind ·
+        <a href="design-statement.html">Design Statement</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    /* ---- MOBILE NAV ---- */
+    (function () {
+      var btn  = document.querySelector('.nav-toggle');
+      var menu = document.getElementById('nav-menu');
+      btn.addEventListener('click', function () {
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', String(!expanded));
+        this.setAttribute('aria-label', expanded ? 'Open navigation menu' : 'Close navigation menu');
+        menu.classList.toggle('is-open', !expanded);
+      });
+      document.addEventListener('click', function (e) {
+        if (!btn.contains(e.target) && !menu.contains(e.target)) {
+          btn.setAttribute('aria-expanded', 'false');
+          btn.setAttribute('aria-label', 'Open navigation menu');
+          menu.classList.remove('is-open');
+        }
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && menu.classList.contains('is-open')) {
+          btn.setAttribute('aria-expanded', 'false');
+          btn.setAttribute('aria-label', 'Open navigation menu');
+          menu.classList.remove('is-open');
+          btn.focus();
+        }
+      });
+    }());
+
+    /* ---- SCROLL REVEAL ---- */
+    (function () {
+      if (!('IntersectionObserver' in window)) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add('is-visible'); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(function (el) { obs.observe(el); });
+    }());
+  </script>
+
+</body>
+</html>
