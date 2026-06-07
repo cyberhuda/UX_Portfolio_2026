@@ -1103,7 +1103,17 @@
           </div>
 
           <div class="reveal">
-            <form class="contact-form" id="contact-form" novalidate aria-label="Send a message to Huda">
+            <form
+              class="contact-form"
+              id="contact-form"
+              novalidate
+              aria-label="Send a message to Huda"
+              action="https://formspree.io/f/xgvaogqw"
+              method="POST"
+            >
+              <!-- Formspree: forward submissions to hhassoun@umich.edu -->
+              <input type="hidden" name="_replyto" value="hhassoun@umich.edu" />
+              <input type="hidden" name="_subject" value="New message from hudahassoun.com" />
 
               <div class="form-row">
                 <div class="form-group" id="fg-name">
@@ -1153,7 +1163,7 @@
               </button>
 
               <div class="form-success" id="form-success" role="status" aria-live="polite">
-                ✓ Message sent! I'll get back to you within 48 hours.
+                ✓ Your message has been successfully received. Please wait 48 business hours for an email reply.
               </div>
             </form>
           </div>
@@ -1300,10 +1310,11 @@
       els.forEach(function (el) { obs.observe(el); });
     }());
 
-    /* ---- CONTACT FORM VALIDATION ---- */
+    /* ---- CONTACT FORM — submits to Formspree, forwards to hhassoun@umich.edu ---- */
     (function () {
       var form    = document.getElementById('contact-form');
       var success = document.getElementById('form-success');
+      var submitBtn = form.querySelector('.btn-submit');
 
       function validate (groupId, condition) {
         var group = document.getElementById(groupId);
@@ -1320,9 +1331,9 @@
         var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         var ok = true;
-        ok = validate('fg-name',    name.length > 0)    && ok;
+        ok = validate('fg-name',    name.length > 0)     && ok;
         ok = validate('fg-email',   emailRe.test(email)) && ok;
-        ok = validate('fg-message', message.length > 0) && ok;
+        ok = validate('fg-message', message.length > 0)  && ok;
 
         if (!ok) {
           var first = form.querySelector('.has-error input, .has-error textarea');
@@ -1330,9 +1341,34 @@
           return;
         }
 
-        form.style.display   = 'none';
-        success.style.display = 'block';
-        success.focus();
+        /* Disable button and show sending state */
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+
+        fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(function (response) {
+          if (response.ok) {
+            /* Success: hide form, show confirmation */
+            form.style.display = 'none';
+            success.style.display = 'block';
+            success.focus();
+          } else {
+            /* Formspree returned an error */
+            return response.json().then(function (data) {
+              throw new Error(data.error || 'Submission failed');
+            });
+          }
+        })
+        .catch(function () {
+          /* Re-enable button and inform user */
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Message';
+          alert('Something went wrong. Please email hhassoun@umich.edu directly.');
+        });
       });
 
       form.addEventListener('input', function (e) {
